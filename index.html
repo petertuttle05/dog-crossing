@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog Crossing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="arcade">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">DC</span><span>DOG CROSSING</span></div>
+      <div class="top-actions">
+        <button class="icon-button" id="soundButton" type="button" aria-label="Toggle sound">♫</button>
+        <button class="icon-button" id="pauseButton" type="button" aria-label="Pause game">Ⅱ</button>
+      </div>
+    </header>
+    <section class="hud" aria-label="Game status">
+      <div><span class="hud-label">SCORE</span><strong id="score">000000</strong></div>
+      <div><span class="hud-label">BEST</span><strong id="best">000000</strong></div>
+      <div><span class="hud-label">STAGE</span><strong id="stage">01</strong></div>
+      <div><span class="hud-label">LIVES</span><strong id="lives">♥♥♥</strong></div>
+    </section>
+    <section class="game-frame">
+      <canvas id="game" width="800" height="600" aria-label="Dog Crossing game"></canvas>
+      <div class="scanlines"></div>
+      <div class="screen-message" id="message">
+        <div class="message-card">
+          <div class="eyebrow">★ ONE MORE BLOCK ★</div>
+          <h1>DOG<br><span>CROSSING</span></h1>
+          <div class="tombstone">RIP<br><small>SPARKY</small></div>
+          <p class="tagline">CROSS FOREVER. WATCH THE TRAFFIC.</p>
+          <button class="start-button" id="startButton" type="button"><span>▶</span> START RUN</button>
+          <p class="controls-hint">ARROW KEYS · RIGHT = FORWARD · +1 SAFE STEP</p>
+        </div>
+      </div>
+    </section>
+    <div class="mobile-controls" aria-label="Touch controls">
+      <button type="button" data-key="ArrowUp" aria-label="Move up">▲</button>
+      <div><button type="button" data-key="ArrowLeft" aria-label="Move left">◀</button><button type="button" data-key="ArrowDown" aria-label="Move down">▼</button><button type="button" data-key="ArrowRight" aria-label="Move right">▶</button></div>
+    </div>
+    <footer><span>© 1987 BARKBYTE ARCADE</span><span>KEEP YOUR EYES ON THE ROAD</span></footer>
+  </main>
+  <script src="game-horizontal.js"></script>
+</body>
+</html>

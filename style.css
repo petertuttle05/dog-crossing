@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap');
+
+:root { --ink:#17151f; --cream:#f9e8bd; --gold:#f5b82e; --coral:#ef5b49; --mint:#8bd5b0; --sky:#68b8c4; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; background:#251c32; color:var(--cream); font-family:'Space Mono',monospace; display:grid; place-items:center; padding:24px 14px; }
+body:before { content:''; position:fixed; inset:0; pointer-events:none; opacity:.18; background-image:linear-gradient(135deg, transparent 25%, #8d5679 25%, #8d5679 26%, transparent 26%),linear-gradient(45deg, transparent 25%, #8d5679 25%, #8d5679 26%, transparent 26%); background-size:38px 38px; }
+.arcade { width:min(100%, 900px); position:relative; z-index:1; }
+.topbar, .hud, footer { display:flex; align-items:center; justify-content:space-between; }
+.topbar { border:3px solid var(--cream); border-bottom:0; padding:15px 18px; background:var(--ink); box-shadow:7px 7px 0 #120f18; }
+.brand { display:flex; align-items:center; gap:12px; font:14px 'Press Start 2P',monospace; letter-spacing:0; }
+.brand-mark { display:grid; place-items:center; width:30px; height:30px; color:var(--ink); background:var(--gold); font-size:10px; }
+.top-actions { display:flex; gap:8px; }
+.icon-button, .mobile-controls button { border:2px solid var(--cream); background:transparent; color:var(--cream); font:14px 'Press Start 2P',monospace; cursor:pointer; }
+.icon-button { width:38px; height:34px; }
+.icon-button:hover, .mobile-controls button:active { background:var(--coral); color:var(--ink); }
+.hud { border:3px solid var(--cream); background:#42304a; padding:12px 18px; box-shadow:7px 7px 0 #120f18; }
+.hud > div { display:flex; flex-direction:column; gap:6px; } .hud-label { color:var(--mint); font-size:10px; } .hud strong { color:var(--gold); font:15px 'Press Start 2P',monospace; letter-spacing:0; }
+.game-frame { position:relative; margin-top:14px; border:8px solid var(--ink); background:#111; box-shadow:7px 7px 0 #120f18; overflow:hidden; }
+canvas { display:block; width:100%; height:auto; image-rendering:pixelated; image-rendering:crisp-edges; }
+.scanlines { position:absolute; inset:0; pointer-events:none; opacity:.12; background:repeating-linear-gradient(0deg, transparent 0 3px, #fff 3px 4px); mix-blend-mode:screen; }
+.screen-message { position:absolute; inset:0; display:grid; place-items:center; background:rgba(23,21,31,.56); text-align:center; } .screen-message.hidden { display:none; }
+.message-card { width:min(90%, 520px); padding:34px 20px; border:3px solid var(--cream); background:rgba(37,28,50,.94); box-shadow:8px 8px 0 rgba(23,21,31,.9); }
+.tombstone { display:none; width:86px; height:70px; margin:-4px auto 18px; padding-top:22px; border:3px solid var(--cream); border-radius:38px 38px 0 0; background:#716b76; color:var(--ink); font:11px/1.5 'Press Start 2P',monospace; box-shadow:5px 5px 0 #17151f; }
+.tombstone small { font-size:8px; }
+.tombstone.visible { display:block; }
+.eyebrow { color:var(--mint); font:10px 'Press Start 2P',monospace; margin-bottom:20px; } h1 { margin:0; color:var(--gold); font:clamp(28px,7vw,58px)/1.25 'Press Start 2P',monospace; text-shadow:4px 4px 0 var(--coral); } h1 span { color:var(--cream); } .tagline { margin:20px 0 26px; color:var(--sky); font-weight:700; font-size:12px; }
+.start-button { border:0; padding:16px 20px; background:var(--coral); color:var(--ink); font:13px 'Press Start 2P',monospace; cursor:pointer; box-shadow:5px 5px 0 #9e3a42; } .start-button:hover { transform:translate(2px,2px); box-shadow:3px 3px 0 #9e3a42; } .start-button span { margin-right:8px; } .controls-hint { color:var(--cream); font-size:10px; margin:24px 0 0; }
+.mobile-controls { display:none; padding:16px 0 4px; text-align:center; } .mobile-controls button { width:52px; height:42px; margin:3px; font-size:13px; } footer { padding:16px 2px 0; color:#b1849d; font-size:10px; }
+@media (max-width:600px) { body { padding:12px 8px; } .topbar { padding:12px; } .brand { font-size:10px; gap:8px; } .brand-mark { width:25px; height:25px; font-size:8px; } .hud { padding:10px 8px; } .hud-label { font-size:8px; } .hud strong { font-size:10px; } .game-frame { margin-top:10px; border-width:5px; } .mobile-controls { display:block; } footer { font-size:8px; } footer span:last-child { display:none; } }
