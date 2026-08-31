@@ -61,7 +61,7 @@ function update(dt) {
   cameraX+=(cameraTargetX-cameraX)*Math.min(1,dt/.18);
   const cameraShift=cameraX-previousCameraX;
   dog.x-=cameraShift; dog.targetX-=cameraShift; dog.startX-=cameraShift; dog.worldX=dog.x+cameraX; dog.bob=Math.max(0,dog.bob-dt*5);
-  catcher.x+=dt*85.5; catcher.targetY=dog.y; catcher.y+=(catcher.targetY-catcher.y)*Math.min(1,dt/.3);
+  catcher.x+=dt*64.125; catcher.targetY=dog.y; catcher.y+=(catcher.targetY-catcher.y)*Math.min(1,dt/.3);
   if(hitTest({x:catcher.x,y:catcher.y+10,w:catcher.w,h:catcher.h-10},dog)){loseLife();return;}
   if(dog.moving){dog.moveProgress=Math.min(1,dog.moveProgress+dt/.2);const eased=dog.moveProgress<.5?2*dog.moveProgress*dog.moveProgress:1-Math.pow(-2*dog.moveProgress+2,2)/2;dog.x=dog.startX+(dog.targetX-dog.startX)*eased;dog.y=dog.startY+(dog.targetY-dog.startY)*eased;
     if(dog.moveProgress>=1){dog.x=dog.targetX;dog.y=dog.targetY;dog.worldX=dog.x+cameraX;dog.moving=false;if(dog.moveWasForward&&!isDogHit()){score++;stage=Math.floor(score/10)+1;catcher.x-=22;updateHud();}else if(isDogHit())loseLife();}
