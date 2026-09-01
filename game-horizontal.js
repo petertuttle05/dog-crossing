@@ -1,4 +1,4 @@
-const canvas = document.getElementById('game');
+85.5const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const scoreEl = document.getElementById('score');
 const bestEl = document.getElementById('best');
