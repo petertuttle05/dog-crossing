@@ -1,4 +1,4 @@
-85.5const canvas = document.getElementById('game');
+const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const scoreEl = document.getElementById('score');
 const bestEl = document.getElementById('best');
@@ -11,7 +11,9 @@ const soundButton = document.getElementById('soundButton');
 const W = canvas.width, H = canvas.height, TILE = 40;
 const carStyles = [{ speed:1.15, color:'#ef5b49', type:0 }, { speed:-1.45, color:'#f5b82e', type:1 }, { speed:1.75, color:'#68b8c4', type:2 }];
 let dog, cars, bones, collectedBoneCols, catcher, cameraX, cameraTargetX, running=false, paused=false, lastTime=0, score=0, stage=1, lives=1, soundOn=true, audioCtx;
-let best = Number(localStorage.getItem('dogCrossingBest') || 0); bestEl.textContent = String(best).padStart(6, '0');
+let best = 0;
+try { best = Number(localStorage.getItem('dogCrossingBest') || 0); } catch (error) { best = 0; }
+bestEl.textContent = String(best).padStart(6, '0');
 function roadWidth(worldCol) { return [2, 3, 4][((Math.floor(worldCol / 8) % 3) + 3) % 3]; }
 function isRoadCol(worldCol) { const cycle=((worldCol%8)+8)%8; return cycle>=3 && cycle<3+roadWidth(worldCol); }
 function resetGame() {
@@ -40,9 +42,9 @@ function ensureBones() {
 }
 function updateHud() { scoreEl.textContent=String(score).padStart(6,'0'); stageEl.textContent=String(stage).padStart(2,'0'); livesEl.textContent=lives?'♥':'·'; }
 function startGame() { resetGame(); running=true; message.classList.add('hidden'); message.querySelector('.tombstone').classList.remove('visible'); startButton.blur(); playTone(440,.06); }
-function endGame() { running=false; message.classList.remove('hidden'); message.querySelector('.eyebrow').textContent='✦ RUN COMPLETE ✦'; message.querySelector('h1').innerHTML='RIP<br><span>SPARKY</span>'; message.querySelector('.tagline').textContent=`FINAL SCORE: ${String(score).padStart(6,'0')}`; message.querySelector('.tombstone').classList.add('visible'); startButton.innerHTML='<span>↻</span> RUN AGAIN'; if(score>best){best=score;localStorage.setItem('dogCrossingBest',best);bestEl.textContent=String(best).padStart(6,'0');} }
+function endGame() { running=false; message.classList.remove('hidden'); message.querySelector('.eyebrow').textContent='✦ RUN COMPLETE ✦'; message.querySelector('h1').innerHTML='RIP<br><span>SPARKY</span>'; message.querySelector('.tagline').textContent=`FINAL SCORE: ${String(score).padStart(6,'0')}`; message.querySelector('.tombstone').classList.add('visible'); startButton.innerHTML='<span>↻</span> RUN AGAIN'; if(score>best){best=score; try { localStorage.setItem('dogCrossingBest',best); } catch (error) {} bestEl.textContent=String(best).padStart(6,'0');} }
 function togglePause() { if(!running)return; paused=!paused; pauseButton.textContent=paused?'▶':'Ⅱ'; }
-function playTone(freq,duration) { if(!soundOn)return; audioCtx ||= new(window.AudioContext||window.webkitAudioContext)(); const osc=audioCtx.createOscillator(),gain=audioCtx.createGain(); osc.frequency.value=freq;osc.type='square';gain.gain.setValueAtTime(.035,audioCtx.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);osc.connect(gain).connect(audioCtx.destination);osc.start();osc.stop(audioCtx.currentTime+duration); }
+function playTone(freq,duration) { if(!soundOn)return; try { if(!audioCtx && (window.AudioContext||window.webkitAudioContext)) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); if(!audioCtx)return; const osc=audioCtx.createOscillator(),gain=audioCtx.createGain(); osc.frequency.value=freq;osc.type='square';gain.gain.setValueAtTime(.035,audioCtx.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);osc.connect(gain).connect(audioCtx.destination);osc.start();osc.stop(audioCtx.currentTime+duration); } catch (error) { /* Audio is optional; ignore unsupported browsers. */ } }
 function move(key) {
   if(!running||paused||dog.moving)return;
   const step=40,forward=key==='ArrowRight'; dog.startX=dog.x; dog.startY=dog.y; dog.targetX=dog.x; dog.targetY=dog.y;
